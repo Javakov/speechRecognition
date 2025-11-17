@@ -19,10 +19,10 @@ import java.util.List;
 public class SpeechRecognitionApp {
     private static final Logger logger = LoggerFactory.getLogger(SpeechRecognitionApp.class);
 
-    // ========== Дефолтные значения для запуска из IDE (без аргументов) ==========
+    // Дефолтные значения для запуска из IDE
     private static final String DEFAULT_AUDIO_RESOURCE = "/video_ru.mp4";
 
-    // Пути к моделям (обе должны быть скачаны для авто-определения языка!)
+    // Пути к моделям
     private static final String MODEL_RU = "models/vosk-model-small-ru-0.22";
     private static final String MODEL_EN = "models/vosk-model-small-en-us-0.15";
 
@@ -40,10 +40,10 @@ public class SpeechRecognitionApp {
         try {
             String inputFilePath = args[0];
 
-            // Проверяем, является ли это ресурсом (начинается с /)
+            // Проверяем, является ли это ресурсом
             Path inputFile;
             if (inputFilePath.startsWith("/") || inputFilePath.startsWith("resource:")) {
-                // Это файл из ресурсов, копируем во временную папку
+                // копируем во временную папку
                 inputFile = extractResourceToTemp(inputFilePath);
                 logger.info("Файл извлечен из ресурсов: {}", inputFile);
             } else {
@@ -65,14 +65,14 @@ public class SpeechRecognitionApp {
             Path audioFile = extractAudio(audioExtractor, inputFile);
 
             try {
-                // Шаг 2: Распознавание ОБЕИМИ моделями
-                logger.info("Шаг 2/3: Распознавание речи русской моделью");
+                // Шаг 2 и 3: Распознавание ОБЕИМИ моделями
+                logger.info("Шаг 2/4: Распознавание речи русской моделью");
                 List<TranscriptionSegment> segmentsRu = recognizeSpeech(MODEL_RU, audioFile);
                 
-                logger.info("Шаг 3/3: Распознавание речи английской моделью");
+                logger.info("Шаг 3/4: Распознавание речи английской моделью");
                 List<TranscriptionSegment> segmentsEn = recognizeSpeech(MODEL_EN, audioFile);
 
-                // Шаг 3: Генерация субтитров для обеих моделей
+                // Шаг 4: Генерация субтитров для обеих моделей
                 generateSubtitles(segmentsRu, segmentsEn, inputFilePath, subtitleGenerator);
 
                 logger.info("=== Обработка завершена успешно ===");
@@ -89,7 +89,7 @@ public class SpeechRecognitionApp {
     }
 
     private static Path extractAudio(AudioExtractor extractor, Path inputFile) throws Exception {
-        logger.info("Шаг 1/3: Извлечение и преобработка аудио");
+        logger.info("Шаг 1/4: Извлечение и преобработка аудио");
         Path audioFile = extractor.extractAudio(inputFile);
         logger.info("Аудио извлечено: {}", audioFile);
         return audioFile;
