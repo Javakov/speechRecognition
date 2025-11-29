@@ -21,8 +21,5 @@ Thumbs.db
 *.wav
 *.tmp
 
-# Output files
-*.srt
-
 # Logs
 *.log

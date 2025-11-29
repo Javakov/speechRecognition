@@ -1,0 +1,10 @@
+Hello, this is a test sentence in English.
+Привет, это тестовое предложение на русском языке.
+The weather today is sunny and warm.
+Сегодня на улице солнечно и тепло.
+I would like to order a coffee, please.
+Я бы хотел заказать кофе, пожалуйста.
+Could you tell me how to get to the station?
+Подскажите, пожалуйста, как пройти до станции?
+Thank you for your help and support.
+Спасибо за вашу помощь и поддержку.

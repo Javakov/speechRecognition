@@ -1,0 +1,72 @@
+1
+00:00:00,810 --> 00:00:04,379
+hello this is a test audio clip for trading your model
+
+2
+00:00:05,250 --> 00:00:14,279
+it contains different types of arts nouns barbs adjectives numbers dates and even some nonsense the check
+
+3
+00:00:15,119 --> 00:00:17,550
+the robustness against nice
+
+4
+00:00:18,390 --> 00:00:19,140
+for example
+
+5
+00:00:21,300 --> 00:00:25,379
+today is a november so team twenty twenty five
+
+6
+00:00:26,820 --> 00:00:28,289
+ah serve as or
+
+7
+00:00:29,160 --> 00:00:31,469
+is sunny but vote but to be and
+
+8
+00:00:32,460 --> 00:00:35,670
+is increasing up to fifteen metres per second
+
+9
+00:00:36,719 --> 00:00:38,670
+ah i'm reading this
+
+10
+00:00:40,079 --> 00:00:42,240
+allowed so can understand how i speak
+
+11
+00:00:42,869 --> 00:00:46,140
+and now drumroll trotter da da da da da da da da da da
+
+12
+00:00:51,329 --> 00:00:52,649
+and now drummer
+
+13
+00:00:52,649 --> 00:00:53,159
+одна он джам роу что та та та та та та та та та та война
+
+14
+00:00:53,159 --> 00:00:54,990
+trotted out are that are better than that
+
+15
+00:00:56,130 --> 00:00:56,939
+back to normal
+
+16
+00:00:57,630 --> 00:00:58,530
+the model
+
+17
+00:00:59,130 --> 00:01:00,420
+should recognize
+
+18
+00:01:01,200 --> 00:01:05,370
+this as a part of the training set good luck with training
+

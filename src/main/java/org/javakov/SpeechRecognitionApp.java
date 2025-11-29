@@ -20,7 +20,7 @@ public class SpeechRecognitionApp {
     private static final Logger logger = LoggerFactory.getLogger(SpeechRecognitionApp.class);
 
     // Дефолтные значения для запуска из IDE
-    private static final String DEFAULT_AUDIO_RESOURCE = "/video_ru.mp4";
+    private static final String DEFAULT_AUDIO_RESOURCE = "/audio_ru_and_en.mp3";
 
     // Пути к моделям
     private static final String MODEL_RU = "models/vosk-model-small-ru-0.22";
@@ -60,6 +60,7 @@ public class SpeechRecognitionApp {
             // Инициализация сервисов
             AudioExtractor audioExtractor = new AudioExtractor();
             SubtitleGenerator subtitleGenerator = new SubtitleGenerator();
+            SegmentMerger segmentMerger = new SegmentMerger();
 
             // Шаг 1: Извлечение аудио
             Path audioFile = extractAudio(audioExtractor, inputFile);
@@ -72,8 +73,8 @@ public class SpeechRecognitionApp {
                 logger.info("Шаг 3/4: Распознавание речи английской моделью");
                 List<TranscriptionSegment> segmentsEn = recognizeSpeech(MODEL_EN, audioFile);
 
-                // Шаг 4: Генерация субтитров для обеих моделей
-                generateSubtitles(segmentsRu, segmentsEn, inputFilePath, subtitleGenerator);
+                // Шаг 4: Объединение сегментов и генерация одного файла субтитров
+                generateSubtitles(segmentsRu, segmentsEn, inputFilePath, subtitleGenerator, segmentMerger);
 
                 logger.info("=== Обработка завершена успешно ===");
 
@@ -118,8 +119,12 @@ public class SpeechRecognitionApp {
     private static void generateSubtitles(List<TranscriptionSegment> segmentsRu,
                                           List<TranscriptionSegment> segmentsEn,
                                           String inputFilePath,
-                                          SubtitleGenerator generator) throws Exception {
-        logger.info("Шаг 4/4: Генерация субтитров");
+                                          SubtitleGenerator generator,
+                                          SegmentMerger merger) throws Exception {
+        logger.info("Шаг 4/4: Объединение сегментов и генерация субтитров");
+
+        // Объединяем сегменты из обеих моделей
+        List<TranscriptionSegment> mergedSegments = merger.mergeSegments(segmentsRu, segmentsEn);
 
         // Определяем базовое имя для файла субтитров
         String baseName;
@@ -142,15 +147,11 @@ public class SpeechRecognitionApp {
             baseName = inputFilePath.substring(0, inputFilePath.lastIndexOf('.'));
         }
 
-        // Генерируем два файла субтитров - русский и английский
-        Path subtitlesFileRu = Paths.get(baseName + "_ru.srt");
-        Path subtitlesFileEn = Paths.get(baseName + "_en.srt");
+        // Генерируем один объединенный файл субтитров
+        Path subtitlesFile = Paths.get(baseName + ".srt");
         
-        generator.generateSRT(segmentsRu, subtitlesFileRu);
-        logger.info("Создан файл субтитров (RU): {}", subtitlesFileRu.toAbsolutePath());
-        
-        generator.generateSRT(segmentsEn, subtitlesFileEn);
-        logger.info("Создан файл субтитров (EN): {}", subtitlesFileEn.toAbsolutePath());
+        generator.generateSRT(mergedSegments, subtitlesFile);
+        logger.info("Создан файл субтитров: {}", subtitlesFile.toAbsolutePath());
     }
 
     private static void cleanupTempFile(Path tempFile) {
@@ -221,9 +222,8 @@ public class SpeechRecognitionApp {
         System.out.println("  <входной_файл> - путь к видео или аудио файлу");
         System.out.println();
         System.out.println("Программа автоматически распознает файл ОБЕИМИ моделями (русской и английской)");
-        System.out.println("и создаст ДВА файла субтитров:");
-        System.out.println("  - filename_ru.srt (распознавание русской моделью)");
-        System.out.println("  - filename_en.srt (распознавание английской моделью)");
+        System.out.println("и создаст ОДИН объединенный файл субтитров:");
+        System.out.println("  - filename.srt (объединенный результат с автоматическим выбором языка)");
         System.out.println();
         System.out.println("Примеры:");
         System.out.println("  java -jar speech-recognition.jar video.mp4");

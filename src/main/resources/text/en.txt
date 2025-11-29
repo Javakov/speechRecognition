@@ -1,0 +1,9 @@
+Hello! This is a test audio clip for training your model.
+It contains different types of words — nouns, verbs, adjectives, numbers, dates,
+and even some nonsense to check robustness against noise.
+For example: “Today is November 13, 2025, the weather is sunny
+but wind is increasing up to 15 m/s.
+I’m reading this aloud so you can understand how I speak.
+And now — drumroll… tra-ta-ta-ta! Back to normal:
+the model should recognize this as part of the training set.
+Good luck with training!”
