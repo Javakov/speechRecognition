@@ -54,3 +54,11 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
+
+tasks.register<JavaExec>("runSpRec") {
+    group = "application"
+    description = "Запускает распознание голоса по входному файлу"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("org.javakov.SpeechRecognitionApp")
+    standardInput = System.`in`
+}

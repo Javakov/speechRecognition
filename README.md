@@ -257,6 +257,10 @@ it contains different words
 
 ### Метод `main(String[] args)` - Точка входа
 
+```
+./gradlew runSpRec "--args=/audio_ru_and_en.mp3"
+```
+
 **Алгоритм:**
 
 **1. Парсинг аргументов:**
